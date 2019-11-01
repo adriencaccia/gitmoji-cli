@@ -9,6 +9,7 @@ const HOOK_PERMISSIONS = 0o775
 const SIGNED_COMMIT = 'signedCommit'
 const TITLE_MAX_LENGTH_COUNT = 48
 const SCOPE_PROMPT = 'scopePrompt'
+const TRELLO_TICKET_NUMBER_PROMPT = 'trelloTicketNumberPrompt'
 
 module.exports = {
   AUTO_ADD,
@@ -20,5 +21,6 @@ module.exports = {
   HOOK_PERMISSIONS,
   SIGNED_COMMIT,
   TITLE_MAX_LENGTH_COUNT,
-  SCOPE_PROMPT
+  SCOPE_PROMPT,
+  TRELLO_TICKET_NUMBER_PROMPT
 }

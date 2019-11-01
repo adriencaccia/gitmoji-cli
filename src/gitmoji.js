@@ -22,6 +22,7 @@ class GitmojiCli {
     if (!config.getEmojiFormat()) config.setEmojiFormat(constants.CODE)
     if (config.getSignedCommit() === undefined) config.setSignedCommit(false)
     if (config.getScopePrompt() === undefined) config.setScopePrompt(false)
+    if (config.getTrelloTicketNumberPrompt() === undefined) config.setTrelloTicketNumberPrompt(false)
   }
 
   config () {
@@ -30,6 +31,7 @@ class GitmojiCli {
       config.setEmojiFormat(answers[constants.EMOJI_FORMAT])
       config.setSignedCommit(answers[constants.SIGNED_COMMIT])
       config.setScopePrompt(answers[constants.SCOPE_PROMPT])
+      config.setTrelloTicketNumberPrompt(answers[constants.TRELLO_TICKET_NUMBER_PROMPT])
     })
   }
 
