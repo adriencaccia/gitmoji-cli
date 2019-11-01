@@ -26,10 +26,16 @@ const config = [
     name: constants.SCOPE_PROMPT,
     message: 'Enable scope prompt',
     type: 'confirm'
+  },
+  {
+    name: constants.TRELLO_TICKET_NUMBER_PROMPT,
+    message: 'Enable Trello ticket number prompt',
+    type: 'confirm'
   }
 ]
 
 const gitmoji = (gitmojis) => {
+  const trelloTickerNumberFromCurrentBranch = utils.getTrelloTicketNumberFromCurrentBranch()
   return [
     {
       name: 'gitmoji',
@@ -48,6 +54,12 @@ const gitmoji = (gitmojis) => {
         )
       }
     },
+    ...(configVault.getTrelloTicketNumberPrompt() !== true ? [] : [{
+      name: 'trelloTicketNumber',
+      message: 'Enter the number of the current Trello ticket',
+      ...(trelloTickerNumberFromCurrentBranch && { default: trelloTickerNumberFromCurrentBranch }),
+      validate: guard.trelloTicketNumber
+    }]),
     ...(configVault.getScopePrompt() !== true ? [] : [{
       name: 'scope',
       message: 'Enter the scope of current changes',
