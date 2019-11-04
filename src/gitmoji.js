@@ -120,7 +120,7 @@ class GitmojiCli {
   }
 
   _hook (answers) {
-    const title = `${answers.gitmoji} ${answers.scope ? `(${answers.scope}): ` : ''}${answers.title}`
+    const title = `${answers.trelloTicketNumber ? `[${answers.trelloTicketNumber}] ` : ''}${answers.gitmoji} ${answers.scope ? `(${answers.scope}): ` : ''}${answers.title}`
     const reference = (answers.reference) ? `#${answers.reference}` : ''
     const body = `${answers.message} ${reference}`
 
