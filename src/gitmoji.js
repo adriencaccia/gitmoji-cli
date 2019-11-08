@@ -22,6 +22,7 @@ class GitmojiCli {
     if (!config.getEmojiFormat()) config.setEmojiFormat(constants.CODE)
     if (config.getSignedCommit() === undefined) config.setSignedCommit(false)
     if (config.getScopePrompt() === undefined) config.setScopePrompt(false)
+    if (config.getTrelloTicketNumberPrompt() === undefined) config.setTrelloTicketNumberPrompt(false)
   }
 
   config () {
@@ -30,6 +31,7 @@ class GitmojiCli {
       config.setEmojiFormat(answers[constants.EMOJI_FORMAT])
       config.setSignedCommit(answers[constants.SIGNED_COMMIT])
       config.setScopePrompt(answers[constants.SCOPE_PROMPT])
+      config.setTrelloTicketNumberPrompt(answers[constants.TRELLO_TICKET_NUMBER_PROMPT])
     })
   }
 
@@ -118,7 +120,7 @@ class GitmojiCli {
   }
 
   _hook (answers) {
-    const title = `${answers.gitmoji} ${answers.scope ? `(${answers.scope}): ` : ''}${answers.title}`
+    const title = `${answers.trelloTicketNumber ? `[${answers.trelloTicketNumber}] ` : ''}${answers.gitmoji} ${answers.scope ? `(${answers.scope}): ` : ''}${answers.title}`
     const reference = (answers.reference) ? `#${answers.reference}` : ''
     const body = `${answers.message} ${reference}`
 
@@ -131,7 +133,7 @@ class GitmojiCli {
   }
 
   _commit (answers) {
-    const title = `${answers.gitmoji} ${answers.scope ? `(${answers.scope}): ` : ''}${answers.title}`
+    const title = `${answers.trelloTicketNumber ? `[${answers.trelloTicketNumber}] ` : ''}${answers.gitmoji} ${answers.scope ? `(${answers.scope}): ` : ''}${answers.title}`
     const signed = config.getSignedCommit() ? '-S' : ''
     const body = `${answers.message}`
     const commit = `git commit ${signed} -m "${title}" -m "${body}"`

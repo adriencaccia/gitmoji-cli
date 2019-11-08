@@ -14,10 +14,12 @@ Object {
   "getEmojiFormat": [Function],
   "getScopePrompt": [Function],
   "getSignedCommit": [Function],
+  "getTrelloTicketNumberPrompt": [Function],
   "setAutoAdd": [Function],
   "setEmojiFormat": [Function],
   "setScopePrompt": [Function],
   "setSignedCommit": [Function],
+  "setTrelloTicketNumberPrompt": [Function],
 }
 `;
 
@@ -27,16 +29,20 @@ Object {
   "CODE": "code",
   "EMOJI_FORMAT": "emojiFormat",
   "HOOK_FILE_CONTENTS": "#!/bin/sh
-# gitmoji as a commit hook
-exec < /dev/tty
-gitmoji --hook $1
-",
+# gitmoji-trello as a commit hook
+BRANCH_NAME=$(git branch | grep '*' | sed 's/* //')
+if [ $BRANCH_NAME != '(no branch)' ]
+then
+  exec < /dev/tty
+  gitmoji-trello --hook $1
+fi",
   "HOOK_MODE": "hook",
   "HOOK_PATH": "/hooks/prepare-commit-msg",
   "HOOK_PERMISSIONS": 509,
   "SCOPE_PROMPT": "scopePrompt",
   "SIGNED_COMMIT": "signedCommit",
   "TITLE_MAX_LENGTH_COUNT": 48,
+  "TRELLO_TICKET_NUMBER_PROMPT": "trelloTicketNumberPrompt",
 }
 `;
 
@@ -95,6 +101,11 @@ Array [
     "name": "scopePrompt",
     "type": "confirm",
   },
+  Object {
+    "message": "Enable Trello ticket number prompt",
+    "name": "trelloTicketNumberPrompt",
+    "type": "confirm",
+  },
 ]
 `;
 
@@ -105,6 +116,11 @@ Array [
     "name": "gitmoji",
     "source": [Function],
     "type": "autocomplete",
+  },
+  Object {
+    "message": "Enter the number of the current Trello ticket",
+    "name": "trelloTicketNumber",
+    "validate": [Function],
   },
   Object {
     "message": "Enter the commit title",
