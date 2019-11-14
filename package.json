@@ -1,12 +1,12 @@
 {
-  "name": "gitmoji-cli",
+  "name": "@adriencaccia/gitmoji-cli",
   "version": "2.2.0",
   "description": "A gitmoji client for using emojis on commit messages.",
   "engines": {
     "node": ">=6"
   },
   "bin": {
-    "gitmoji": "cli.js"
+    "gitmoji-trello": "cli.js"
   },
   "scripts": {
     "lint": "standard \"src/**/*.js\"",
@@ -14,20 +14,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/carloscuesta/gitmoji-cli.git"
+    "url": "git+https://github.com/adriencaccia/gitmoji-cli.git"
   },
   "keywords": [
     "gitmoji",
     "emoji",
     "carloscuesta",
+    "adriencaccia",
     "commit"
   ],
-  "author": "Carlos Cuesta",
+  "author": "Adrien Cacciaguerra",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/carloscuesta/gitmoji-cli/issues"
+    "url": "https://github.com/adriencaccia/gitmoji-cli/issues"
   },
-  "homepage": "https://github.com/carloscuesta/gitmoji-cli#readme",
+  "homepage": "https://github.com/adriencaccia/gitmoji-cli#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "chalk": "^2.4.1",
@@ -48,5 +49,9 @@
   "jest": {
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
+  },
+  "main": "cli.js",
+  "directories": {
+    "test": "test"
   }
 }
