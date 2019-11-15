@@ -1,5 +1,6 @@
 const AUTO_ADD = 'autoAdd'
 const CODE = 'code'
+const EMOJI = 'emoji'
 const EMOJI_FORMAT = 'emojiFormat'
 const HOOK_MODE = 'hook'
 const HOOK_FILE_CONTENTS =
@@ -20,6 +21,7 @@ const TRELLO_TICKET_NUMBER_PROMPT = 'trelloTicketNumberPrompt'
 module.exports = {
   AUTO_ADD,
   CODE,
+  EMOJI,
   EMOJI_FORMAT,
   HOOK_FILE_CONTENTS,
   HOOK_MODE,

@@ -19,10 +19,10 @@ class GitmojiCli {
     this._gitmojiApiClient = gitmojiApiClient
     this._gitmojis = gitmojis
     if (config.getAutoAdd() === undefined) config.setAutoAdd(false)
-    if (!config.getEmojiFormat()) config.setEmojiFormat(constants.CODE)
+    if (!config.getEmojiFormat()) config.setEmojiFormat(constants.EMOJI)
     if (config.getSignedCommit() === undefined) config.setSignedCommit(false)
     if (config.getScopePrompt() === undefined) config.setScopePrompt(false)
-    if (config.getTrelloTicketNumberPrompt() === undefined) config.setTrelloTicketNumberPrompt(false)
+    if (config.getTrelloTicketNumberPrompt() === undefined) config.setTrelloTicketNumberPrompt(true)
   }
 
   config () {

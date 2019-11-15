@@ -49,7 +49,7 @@ const gitmoji = (gitmojis) => {
           })
             .map((gitmoji) => ({
               name: `${gitmoji.emoji}  - ${gitmoji.description}`,
-              value: gitmoji[configVault.getEmojiFormat() || constants.CODE]
+              value: gitmoji[configVault.getEmojiFormat() || constants.EMOJI]
             }))
         )
       }
