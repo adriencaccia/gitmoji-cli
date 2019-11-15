@@ -30,10 +30,12 @@ const inputCountTransformer = (input, maxLength) => {
 }
 
 const getTrelloTicketNumberFromCurrentBranch = () => {
-  const result = execa.sync('git', ['rev-parse', '--abbrev-ref', 'HEAD'])
-  const trelloTicketNumberRegex = /\/(\d+)/g
-  const regexMatch = trelloTicketNumberRegex.exec(result.stdout)
-  return regexMatch && regexMatch.length > 1 && regexMatch[1] > 0 && regexMatch[1]
+  try {
+    const result = execa.sync('git', ['rev-parse', '--abbrev-ref', 'HEAD'])
+    const trelloTicketNumberRegex = /\/(\d+)/g
+    const regexMatch = trelloTicketNumberRegex.exec(result.stdout)
+    return regexMatch && regexMatch.length > 1 && regexMatch[1] > 0 && regexMatch[1]
+  } catch (e) { return false }
 }
 
 module.exports = {
