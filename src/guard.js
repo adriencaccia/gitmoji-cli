@@ -10,7 +10,7 @@ const errors = {
 const scope = (scope) => scope.includes('`') ? errors.scope : true
 
 const trelloTicketNumber = (trelloTicketNumber) =>
-  !/^\+?([1-9]\d*)$/.test(trelloTicketNumber)
+  !/^$|^\+?([1-9]\d*)$/.test(trelloTicketNumber)
     ? errors.trelloTicketNumber
     : true
 
