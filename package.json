@@ -50,7 +50,6 @@
     "coverageDirectory": "./coverage/",
     "collectCoverage": true
   },
-  "main": "cli.js",
   "directories": {
     "test": "test"
   }

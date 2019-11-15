@@ -4,12 +4,12 @@ const EMOJI = 'emoji'
 const EMOJI_FORMAT = 'emojiFormat'
 const HOOK_MODE = 'hook'
 const HOOK_FILE_CONTENTS =
-  '#!/bin/sh\n# gitmoji-cli as a commit hook\n' +
+  '#!/bin/sh\n# gitmoji-trello as a commit hook\n' +
   'BRANCH_NAME=$(git branch | grep \'*\' | sed \'s/* //\')\n' +
   'if [ $BRANCH_NAME != \'(no branch)\' ]\n' +
   'then\n' +
   '  exec < /dev/tty\n' +
-  '  gitmoji-cli --hook $1\n' +
+  '  gitmoji-trello --hook $1\n' +
   'fi'
 const HOOK_PATH = '/hooks/prepare-commit-msg'
 const HOOK_PERMISSIONS = 0o775
