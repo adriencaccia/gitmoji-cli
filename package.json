@@ -1,6 +1,6 @@
 {
   "name": "@adriencaccia/gitmoji-cli",
-  "version": "2.2.0",
+  "version": "2.2.2",
   "description": "A gitmoji client for using emojis on commit messages.",
   "engines": {
     "node": ">=6"
@@ -8,6 +8,10 @@
   "bin": {
     "gitmoji-trello": "cli.js"
   },
+  "files": [
+    "src",
+    "cli.js"
+  ],
   "scripts": {
     "lint": "standard \"src/**/*.js\"",
     "test": "npm run lint && jest && codecov"

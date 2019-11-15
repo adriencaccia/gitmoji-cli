@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-$ npm i -g @adriencaccia/gitmoji-trello
+$ npm i -g @adriencaccia/gitmoji-cli
 ```
 
 ## Usage
