@@ -1,5 +1,6 @@
 const axios = require('axios')
 const execa = require('execa')
+const constants = require('./constants')
 
 const gitmojiApiClient = axios.create({
   baseURL: 'https://raw.githubusercontent.com/carloscuesta/gitmoji/master',
@@ -38,9 +39,16 @@ const getTrelloTicketNumberFromCurrentBranch = () => {
   } catch (e) { return false }
 }
 
+const getTitleMaxLength = trelloTicketNumber =>
+  constants.TITLE_MAX_LENGTH_COUNT -
+  (trelloTicketNumber && trelloTicketNumber.length
+    ? trelloTicketNumber.length + constants.TRELLO_TICKET_CHARACTERS_ADDED
+    : 0)
+
 module.exports = {
   findGitmojiCommand,
   gitmojiApiClient,
   inputCountTransformer,
-  getTrelloTicketNumberFromCurrentBranch
+  getTrelloTicketNumberFromCurrentBranch,
+  getTitleMaxLength
 }

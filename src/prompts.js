@@ -69,9 +69,9 @@ const gitmoji = (gitmojis) => {
       name: 'title',
       message: 'Enter the commit title',
       validate: guard.title,
-      transformer: (input) => utils.inputCountTransformer(
+      transformer: (input, answers) => utils.inputCountTransformer(
         input,
-        constants.TITLE_MAX_LENGTH_COUNT
+        utils.getTitleMaxLength(answers.trelloTicketNumber)
       )
     },
     {
