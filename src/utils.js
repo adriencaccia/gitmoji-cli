@@ -48,17 +48,18 @@ const getTitleMaxLength = trelloTicketNumber =>
     : 0)
 
 const getDefaultTitleAndMessage = () => {
-  if (process.argv && process.argv.length >= 4 && process.argv[3]) {
+  try {
     const commitFilePath = process.argv[3]
     const commitFileContent = fs.readFileSync(commitFilePath).toString().split('\n')
     return {
       title: commitFileContent.length ? commitFileContent[0] : '',
       message: commitFileContent.length >= 3 ? commitFileContent[2] : ''
     }
-  }
-  return {
-    title: '',
-    message: ''
+  } catch (e) {
+    return {
+      title: '',
+      message: ''
+    }
   }
 }
 
