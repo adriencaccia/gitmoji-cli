@@ -120,7 +120,9 @@ class GitmojiCli {
   }
 
   _hook (answers) {
-    const title = `${answers.trelloTicketNumber ? `[${answers.trelloTicketNumber}] ` : ''}${answers.gitmoji} ${answers.scope ? `(${answers.scope}): ` : ''}${answers.title}`
+    const trelloTicketNumberString = answers.trelloTicketNumber ? `[${answers.trelloTicketNumber}] ` : ''
+    const scopeString = answers.scope ? `(${answers.scope}): ` : ''
+    const title = `${trelloTicketNumberString}${answers.gitmoji} ${scopeString}${answers.title}`
     const reference = (answers.reference) ? `#${answers.reference}` : ''
     const body = `${answers.message} ${reference}`
 
@@ -133,7 +135,9 @@ class GitmojiCli {
   }
 
   _commit (answers) {
-    const title = `${answers.trelloTicketNumber ? `[${answers.trelloTicketNumber}] ` : ''}${answers.gitmoji} ${answers.scope ? `(${answers.scope}): ` : ''}${answers.title}`
+    const trelloTicketNumberString = answers.trelloTicketNumber ? `[${answers.trelloTicketNumber}] ` : ''
+    const scopeString = answers.scope ? `(${answers.scope}): ` : ''
+    const title = `${trelloTicketNumberString}${answers.gitmoji} ${scopeString}${answers.title}`
     const signed = config.getSignedCommit() ? '-S' : ''
     const body = `${answers.message}`
     const commit = `git commit ${signed} -m "${title}" -m "${body}"`
