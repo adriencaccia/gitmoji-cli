@@ -36,6 +36,7 @@ const config = [
 
 const gitmoji = (gitmojis) => {
   const trelloTickerNumberFromCurrentBranch = utils.getTrelloTicketNumberFromCurrentBranch()
+  const { title, message } = utils.getDefaultTitleAndMessage()
   return [
     {
       name: 'gitmoji',
@@ -71,13 +72,16 @@ const gitmoji = (gitmojis) => {
       validate: guard.title,
       transformer: (input, answers) => utils.inputCountTransformer(
         input,
-        utils.getTitleMaxLength(answers.trelloTicketNumber)
-      )
+        utils.getTitleMaxLength(answers.trelloTicketNumber),
+        title
+      ),
+      ...(title && { default: title })
     },
     {
       name: 'message',
       message: 'Enter the commit message:',
-      validate: guard.message
+      validate: guard.message,
+      ...(title && message && { default: message })
     }
   ]
 }

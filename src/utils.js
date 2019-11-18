@@ -1,5 +1,7 @@
 const axios = require('axios')
 const execa = require('execa')
+const fs = require('fs')
+
 const constants = require('./constants')
 
 const gitmojiApiClient = axios.create({
@@ -26,8 +28,8 @@ const findGitmojiCommand = (cli, options) => {
     : cli.showHelp()
 }
 
-const inputCountTransformer = (input, maxLength) => {
-  return `[${input.length}/${maxLength}]: ${input}`
+const inputCountTransformer = (input, maxLength, title) => {
+  return `[${input.length || title.length}/${maxLength}]: ${input}`
 }
 
 const getTrelloTicketNumberFromCurrentBranch = () => {
@@ -45,10 +47,26 @@ const getTitleMaxLength = trelloTicketNumber =>
     ? trelloTicketNumber.length + constants.TRELLO_TICKET_CHARACTERS_ADDED
     : 0)
 
+const getDefaultTitleAndMessage = () => {
+  if (process.argv && process.argv.length >= 4 && process.argv[3]) {
+    const commitFilePath = process.argv[3]
+    const commitFileContent = fs.readFileSync(commitFilePath).toString().split('\n')
+    return {
+      title: commitFileContent.length ? commitFileContent[0] : '',
+      message: commitFileContent.length >= 3 ? commitFileContent[2] : ''
+    }
+  }
+  return {
+    title: '',
+    message: ''
+  }
+}
+
 module.exports = {
   findGitmojiCommand,
   gitmojiApiClient,
   inputCountTransformer,
   getTrelloTicketNumberFromCurrentBranch,
-  getTitleMaxLength
+  getTitleMaxLength,
+  getDefaultTitleAndMessage
 }

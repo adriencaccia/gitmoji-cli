@@ -129,8 +129,8 @@ class GitmojiCli {
     try {
       const commitFilePath = process.argv[3]
       const commitFileContent = fs.readFileSync(commitFilePath).toString().split('\n')
-      const commitTitleAndMessage = `${title}\n\n${body}`
-      commitFileContent.splice(0, 0, commitTitleAndMessage)
+      const commitTitleAndMessage = [ title, '', body ]
+      commitFileContent.splice(0, 3, ...commitTitleAndMessage)
       fs.writeFileSync(commitFilePath, commitFileContent.join('\n'))
     } catch (error) {
       return this._errorMessage(error)
