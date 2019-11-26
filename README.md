@@ -2,6 +2,9 @@
 
 > A [gitmoji-cli](https://github.com/carloscuesta/gitmoji-cli) fork with a simple Trello integration
 
+## :warning: Display color emoji
+On Ubuntu, If the emojis aren't displayed in color in your terminal, run this: `sudo apt install fonts-noto-color-emoji `
+
 ## Install
 
 ```bash
