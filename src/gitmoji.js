@@ -15,8 +15,9 @@ inquirer.registerPrompt(
 )
 
 class GitmojiCli {
-  constructor (gitmojiApiClient, gitmojis) {
+  constructor (gitmojiApiClient, trelloApiClient, gitmojis) {
     this._gitmojiApiClient = gitmojiApiClient
+    this._trelloApiClient = trelloApiClient
     this._gitmojis = gitmojis
     if (config.getAutoAdd() === undefined) config.setAutoAdd(false)
     if (!config.getEmojiFormat()) config.setEmojiFormat(constants.EMOJI)
@@ -32,6 +33,9 @@ class GitmojiCli {
       config.setSignedCommit(answers[constants.SIGNED_COMMIT])
       config.setScopePrompt(answers[constants.SCOPE_PROMPT])
       config.setTrelloTicketNumberPrompt(answers[constants.TRELLO_TICKET_NUMBER_PROMPT])
+      inquirer.prompt(this._trelloApiClient.trelloApiPrompt()).then(answer => {
+        config.setTrelloApiToken(answer[constants.TRELLO_API_TOKEN])
+      })
     })
   }
 
@@ -98,13 +102,35 @@ class GitmojiCli {
     if (!this._isAGitRepo()) {
       return this._errorMessage('This directory is not a git repository.')
     }
+    if (config.getTrelloBoardByPwd()) {
+      return this._ask(mode)
+    }
+    return inquirer.prompt(this._trelloApiClient.trelloBoardsPrompt()).then(answer => {
+      config.setTrelloBoardByPwd(answer.boardId)
+      return this._ask(mode)
+    })
+  }
 
+  _ask (mode) {
     return this._fetchEmojis()
       .then((gitmojis) => prompts.gitmoji(gitmojis))
       .then((questions) => {
-        inquirer.prompt(questions).then((answers) => {
-          if (mode === constants.HOOK_MODE) this._hook(answers)
-          return this._commit(answers)
+        return inquirer.prompt(questions).then((answers) => {
+          if (answers.trelloTicketNumber) {
+            return this._trelloApiClient.fetchTicketInfo(answers.trelloTicketNumber)
+              .then(res => {
+                if (mode === constants.HOOK_MODE) this._hook(answers, res.data)
+                return this._commit(answers)
+              })
+              .catch(_ => {
+                console.log(chalk.red('Trello card not found !'))
+                if (mode === constants.HOOK_MODE) this._hook(answers)
+                return this._commit(answers)
+              })
+          } else {
+            if (mode === constants.HOOK_MODE) this._hook(answers)
+            return this._commit(answers)
+          }
         })
       })
       .catch(err => this._errorMessage(err.code))
@@ -119,12 +145,12 @@ class GitmojiCli {
     console.error(chalk.red(`ERROR: ${message}`))
   }
 
-  _hook (answers) {
+  _hook (answers, card = {}) {
+    const { name: cardName, shortUrl: cardUrl } = card
     const trelloTicketNumberString = answers.trelloTicketNumber ? `[${answers.trelloTicketNumber}] ` : ''
     const scopeString = answers.scope ? `(${answers.scope}): ` : ''
     const title = `${trelloTicketNumberString}${answers.gitmoji} ${scopeString}${answers.title}`
-    const reference = (answers.reference) ? `#${answers.reference}` : ''
-    const body = `${answers.message} ${reference}`
+    const body = `${answers.message}\n${cardName || ''}\n${cardUrl || ''}`
 
     try {
       const commitFilePath = process.argv[3]
