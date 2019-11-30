@@ -15,8 +15,9 @@ inquirer.registerPrompt(
 )
 
 class GitmojiCli {
-  constructor (gitmojiApiClient, gitmojis) {
+  constructor (gitmojiApiClient, trelloApiClient, gitmojis) {
     this._gitmojiApiClient = gitmojiApiClient
+    this._trelloApiClient = trelloApiClient
     this._gitmojis = gitmojis
     if (config.getAutoAdd() === undefined) config.setAutoAdd(false)
     if (!config.getEmojiFormat()) config.setEmojiFormat(constants.EMOJI)
@@ -32,6 +33,9 @@ class GitmojiCli {
       config.setSignedCommit(answers[constants.SIGNED_COMMIT])
       config.setScopePrompt(answers[constants.SCOPE_PROMPT])
       config.setTrelloTicketNumberPrompt(answers[constants.TRELLO_TICKET_NUMBER_PROMPT])
+      inquirer.prompt(this._trelloApiClient.trelloApiPrompt()).then(answer => {
+        config.setTrelloApiToken(answer[constants.TRELLO_API_TOKEN])
+      })
     })
   }
 

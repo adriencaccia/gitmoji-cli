@@ -4,6 +4,7 @@ const updateNotifier = require('update-notifier')
 const GitmojiCli = require('./src/gitmoji.js')
 const pkg = require('./package.json')
 const utils = require('./src/utils.js')
+const TrelloApi = require('./src/trello/api')
 
 updateNotifier({ pkg }).notify()
 
@@ -36,7 +37,8 @@ const cli = meow(`
   }
 })
 
-const gitmojiCli = new GitmojiCli(utils.gitmojiApiClient)
+const trelloCli = new TrelloApi()
+const gitmojiCli = new GitmojiCli(utils.gitmojiApiClient, trelloCli)
 const options = {
   commit: () => gitmojiCli.ask('client'),
   config: () => gitmojiCli.config(),
