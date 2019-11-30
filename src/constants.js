@@ -27,6 +27,10 @@ const TITLE_MAX_LENGTH_COUNT = 48
 const SCOPE_PROMPT = 'scopePrompt'
 const TRELLO_TICKET_NUMBER_PROMPT = 'trelloTicketNumberPrompt'
 const TRELLO_TICKET_CHARACTERS_ADDED = 3
+const TRELLO_API_URL = 'https://api.trello.com/1/'
+const TRELLO_API_KEY = '89ff0acd5db38135ba8798c52aa39485'
+const TRELLO_API_TOKEN = 'trelloToken'
+const TRELLO_BOARDS = 'trelloBoards'
 
 module.exports = {
   AUTO_ADD,
@@ -41,5 +45,9 @@ module.exports = {
   TITLE_MAX_LENGTH_COUNT,
   SCOPE_PROMPT,
   TRELLO_TICKET_NUMBER_PROMPT,
-  TRELLO_TICKET_CHARACTERS_ADDED
+  TRELLO_TICKET_CHARACTERS_ADDED,
+  TRELLO_API_URL,
+  TRELLO_API_KEY,
+  TRELLO_API_TOKEN,
+  TRELLO_BOARDS
 }
