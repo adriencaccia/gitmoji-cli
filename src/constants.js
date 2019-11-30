@@ -31,6 +31,7 @@ const TRELLO_API_URL = 'https://api.trello.com/1/'
 const TRELLO_API_KEY = '89ff0acd5db38135ba8798c52aa39485'
 const TRELLO_API_TOKEN = 'trelloToken'
 const TRELLO_BOARDS = 'trelloBoards'
+const TRELLO_BOARD_BY_PWD = 'trelloBoardByPwd'
 
 module.exports = {
   AUTO_ADD,
@@ -49,5 +50,6 @@ module.exports = {
   TRELLO_API_URL,
   TRELLO_API_KEY,
   TRELLO_API_TOKEN,
-  TRELLO_BOARDS
+  TRELLO_BOARDS,
+  TRELLO_BOARD_BY_PWD
 }
