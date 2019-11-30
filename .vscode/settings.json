@@ -1,4 +1,4 @@
 {
-    "eslint.enable": false,
-    "standard.autoFixOnSave": true
+  "standard.enable": true,
+  "standard.autoFixOnSave": true
 }
